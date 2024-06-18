@@ -10,8 +10,7 @@ export const allCategories = async() =>{
             }
         })
         
-        const data = await res.json()
-        return data
+        return res.json()
     } catch (error) {
         console.log(error)
         return {status:false}

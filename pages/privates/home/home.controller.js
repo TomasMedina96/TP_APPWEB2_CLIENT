@@ -16,6 +16,7 @@ Redireccionar(btnCart, '../carrito/carrito.html')
 
 document.addEventListener('DOMContentLoaded',async () => {
 const categories = await allCategories()
+console.log(categories)
 
 categories.forEach(cat => {
 const catCarrito = categoriesCarrito(cat.id, cat.nombre)
