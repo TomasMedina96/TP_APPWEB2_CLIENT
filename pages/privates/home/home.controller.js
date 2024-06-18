@@ -1,10 +1,10 @@
-import { card } from "../../../components/card.js";
+import { card } from "../../../components/homeComponents/card.js";
 import { AllProducts, ProductsByCategory } from "../../../api/productos.api.js";
 import { Redireccionar } from "../../../functions/redireccion.js";
 import { showNotification } from "../../../functions/notificacionProd.js";
 import { addToCart } from "../../../functions/addLocalStorage.js";
 import { allCategories } from "../../../api/categories.api.js";
-import { categoriesCarrito } from "../../../components/categories.js";
+import { categoriesCarrito } from "../../../components/homeComponents/categories.js";
 
 
 
