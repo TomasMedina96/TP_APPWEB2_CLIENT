@@ -1,4 +1,6 @@
 import { SellProduct } from "../../../api/venta.api.js";
+import { productRow } from "../../../components/carritoComponents/productCarrito.js";
+import { totalRow } from "../../../components/carritoComponents/totalCarrito.js";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,35 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
             suma += precioTotalProducto;
 
             productos.push({id: product.id, cantidad: product.quantity});
+            const productC = productRow(id,product.image,product.name,product.quantity,precioTotalProducto);
 
-            const productRow = document.createElement('tr');
-            productRow.className = 'border-t';
-            productRow.innerHTML = `
-                <td class="px-4 py-2 text-left">
-                    <div class="flex items-center">
-                        <img src="${product.image}" alt="${product.name}" class="h-12 w-12 object-cover mr-4">
-                        <span>${product.name}</span>
-                    </div>
-                </td>
-                <td class="px-4 py-2 text-center flex items-center justify-center">
-                    <button class="decrement-btn bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" data-id="${id}">-</button>
-                    <input type="text" id="quantity-${id}" value="${product.quantity}" class="w-12 text-center mx-2 border border-gray-300 rounded" readonly>
-                    <button class="increment-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" data-id="${id}">+</button>
-                </td>
-                <td class="px-4 py-2 text-center">$${precioTotalProducto.toFixed(2)}</td>
-                <td class="px-4 py-2 text-right">
-                    <button class="delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${id}">Eliminar</button>
-                </td>
-            `;
-            cartItemsContainer.appendChild(productRow);
+            cartItemsContainer.insertAdjacentHTML('beforeend', productC);
         }
 
-        const totalRow = document.createElement('tr');
-        totalRow.innerHTML = `
-            <td colspan="4" class="px-4 py-2 text-center text-lg font-bold border-2 border-gray-800">
-                Total: $${suma.toFixed(2)}
-            </td>`;
-        cartItemsContainer.appendChild(totalRow);
+        const total = totalRow(suma);
+        cartItemsContainer.insertAdjacentHTML('beforeend', total);
 
         document.querySelectorAll('.increment-btn').forEach(button => {
             button.addEventListener('click', () => updateQuantity(button.getAttribute('data-id'), true));

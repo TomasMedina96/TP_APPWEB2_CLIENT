@@ -3,6 +3,8 @@ import { AllProducts, ProductsByCategory } from "../../../api/productos.api.js";
 import { Redireccionar } from "../../../functions/redireccion.js";
 import { showNotification } from "../../../functions/notificacionProd.js";
 import { addToCart } from "../../../functions/addLocalStorage.js";
+import { allCategories } from "../../../api/categories.api.js";
+import { categoriesCarrito } from "../../../components/categories.js";
 
 
 
@@ -11,6 +13,16 @@ const btnProductsByCategory = document.getElementById('category-select');
 const btnCart = document.getElementById('cart-btn'); // Botón "Mi Carrito"
 
 Redireccionar(btnCart, '../carrito/carrito.html')
+
+document.addEventListener('DOMContentLoaded',async () => {
+const categories = await allCategories()
+
+categories.forEach(cat => {
+const catCarrito = categoriesCarrito(cat.id, cat.nombre)
+btnProductsByCategory.insertAdjacentHTML('beforeend', catCarrito);
+
+});
+})
 
 // Event listener para mostrar todos los productos
 btnAllProducts.addEventListener('click', async () => {
