@@ -1,4 +1,4 @@
-import { validateUser } from "../../api/user.js";
+import { validateUser } from "../../../api/user.js";
 
 
 
