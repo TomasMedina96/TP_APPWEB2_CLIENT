@@ -59,17 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCartItems();
 
     document.getElementById('checkout-btn').addEventListener('click', async () => {
-        console.log(suma);
+
         const fecha = new Date();
         const id = sessionStorage.getItem('userId');
         const email = sessionStorage.getItem('email');
 
         if (productos.length > 0) {
-            await SellProduct(id, fecha, suma, email, productos);
-            localStorage.removeItem('cart');
-            cart = {};
-            renderCartItems();
-            alert('Compra realizada con éxito');
+            const token = sessionStorage.getItem('token')
+
+            const result = await SellProduct(id, fecha, suma, email, productos,token);
+            if(result){
+                localStorage.removeItem('cart');
+                cart = {};
+                renderCartItems();
+                alert('Compra realizada con éxito');
+            }else{
+                alert('Ingrese sesion nuevamente');
+                window.location.href = '../../publics/sesion/validacion.html'; 
+            }
+
         } else {
             alert('No hay productos en el carrito');
         }

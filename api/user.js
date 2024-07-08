@@ -11,7 +11,6 @@ export const validateUser = async (email, password) => {
         });
         const result = await response.json();
 
-        console.log(result)
         if (result == 'Usuario no encontrado') {
             throw new Error(result.message || 'Usuario no encontrado');
         }

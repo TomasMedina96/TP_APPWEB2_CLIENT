@@ -1,6 +1,6 @@
 import { API } from "./api.js"
 
-export const SellProduct = async(id_usuario,fecha,total,dirección,productos) =>{
+export const SellProduct = async(id_usuario,fecha,total,dirección,productos,token) =>{
 
     try {
 
@@ -9,14 +9,11 @@ export const SellProduct = async(id_usuario,fecha,total,dirección,productos) =>
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id_usuario,fecha,total,dirección,productos }) // Enviar cuerpo de la solicitud en formato JSON
+                body: JSON.stringify({ id_usuario,fecha,total,dirección,productos,token }) // Enviar cuerpo de la solicitud en formato JSON
             })
             
             const data = await res.json()
             return data
-        
-
-
     } catch (error) {
         console.log(error)
         return {status:false}

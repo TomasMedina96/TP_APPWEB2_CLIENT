@@ -10,9 +10,11 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
     try {
         const result = await validateUser(email, password);
-        sessionStorage.setItem('userId', result.id);
-        sessionStorage.setItem('email', result.email);
+        console.log(result)
+        sessionStorage.setItem('userId', result.decode.nombre);
+        sessionStorage.setItem('email', result.decode.email);
         sessionStorage.setItem('loginUrl', window.location.href);
+        sessionStorage.setItem('token', result.token)
         window.location.href = '../../privates/home/home.html'; // Redireccionar a la página principal
     } catch (error) {
         const errorMessage = document.getElementById('error-message');
