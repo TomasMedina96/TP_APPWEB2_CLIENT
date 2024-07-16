@@ -19,7 +19,7 @@ const categories = await allCategories()
 console.log(categories)
 
 categories.forEach(cat => {
-const catCarrito = categoriesCarrito(cat.id, cat.nombre)
+const catCarrito = categoriesCarrito(cat._id, cat.nombre)
 btnProductsByCategory.insertAdjacentHTML('beforeend', catCarrito);
 
 });
@@ -33,15 +33,26 @@ btnAllProducts.addEventListener('click', async () => {
 
 // Event listener para mostrar productos por categoría
 btnProductsByCategory.addEventListener('change', async () => {
-    const indice = btnProductsByCategory.value;
+    const indice = btnProductsByCategory.value
+    
+    
     const productos = await ProductsByCategory(indice);
-    await renderizado(productos);
+
+
+    if(productos.status == false){
+        await renderizado([]); 
+    }
+    else{
+        
+        await renderizado(productos);   
+    }
+    
 });
 
 const renderizado = (productos) => {
     const grilla = document.getElementById('grid');
     const productosHTML = productos.map(producto => {
-        const listProd = card(producto.id, producto.imagen, producto.nombre, producto.desc, producto.precio, producto.en_stock);
+        const listProd = card(producto._id, producto.imagen, producto.name, producto.desc, producto.price, producto.stock);
         return listProd;
     }).join('');
     grilla.innerHTML = productosHTML;

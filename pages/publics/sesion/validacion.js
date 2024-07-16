@@ -11,7 +11,8 @@ document.getElementById('login-form').addEventListener('submit', async function(
     try {
         const result = await validateUser(email, password);
         console.log(result)
-        sessionStorage.setItem('userId', result.decode.nombre);
+        sessionStorage.setItem('userName', result.decode.nombre);
+        sessionStorage.setItem('userId', result.decode.idUsuario);
         sessionStorage.setItem('email', result.decode.email);
         sessionStorage.setItem('loginUrl', window.location.href);
         sessionStorage.setItem('token', result.token)

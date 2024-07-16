@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let precioTotalProducto = parseFloat(product.price) * product.quantity;
             suma += precioTotalProducto;
 
-            productos.push({id: product.id, cantidad: product.quantity});
+            productos.push({producto: product.id, cantidad: product.quantity});
             const productC = productRow(id,product.image,product.name,product.quantity,precioTotalProducto);
 
             cartItemsContainer.insertAdjacentHTML('beforeend', productC);
@@ -63,11 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const fecha = new Date();
         const id = sessionStorage.getItem('userId');
         const email = sessionStorage.getItem('email');
+        
 
         if (productos.length > 0) {
             const token = sessionStorage.getItem('token')
 
-            const result = await SellProduct(id, fecha, suma, email, productos,token);
+            console.log(id, fecha, suma, email, productos,token)
+
+            const result = await SellProduct(id, fecha, suma, email.toString(), productos,token);
+            console.log(result)
             if(result){
                 localStorage.removeItem('cart');
                 cart = {};

@@ -18,7 +18,7 @@ export const AllProducts = async() =>{
     }
 }
 
-export const ProductsByCategory = async(id) =>{
+export const ProductsByCategory = async(nombre) =>{
 
     try {
         const res = await fetch(`${API}/products/getProductsByCategory/`,{
@@ -26,11 +26,17 @@ export const ProductsByCategory = async(id) =>{
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id }) // Enviar cuerpo de la solicitud en formato JSON
+            body: JSON.stringify({ nombre }) // Enviar cuerpo de la solicitud en formato JSON
         })
         
         const data = await res.json()
-        return data
+
+        if(data){
+            return data
+        }else{
+            return{status: false} 
+        }
+        
     } catch (error) {
         console.log(error)
         return {status:false}
